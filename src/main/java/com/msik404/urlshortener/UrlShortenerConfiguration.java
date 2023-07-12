@@ -7,14 +7,13 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
+@RequiredArgsConstructor
 public class UrlShortenerConfiguration {
 
     private final RedisProperties redisProperties;
-
-    public UrlShortenerConfiguration(RedisProperties redisProperties) {
-        this.redisProperties = redisProperties;
-    }
 
     @Bean
     public ReactiveRedisConnectionFactory lettuceConnectionFactory() {

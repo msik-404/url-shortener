@@ -2,7 +2,6 @@ package com.msik404.urlshortener;
 
 import java.net.URI;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/urls")
+@RequiredArgsConstructor
 public class UrlController {
 
-    @Autowired
-    private ReactiveStringRedisTemplate template;
+    private final ReactiveStringRedisTemplate template;
 
     @GetMapping("/{shortUrl}")
     public Mono<ResponseEntity<Void>> redirectToRealUrl(@PathVariable String shortUrl) {
