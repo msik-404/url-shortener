@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  url-shortener:
+    depends_on:
+      - redis
+    build: .
+    hostname: url-shortener
+    env_file:
+      - .env
+    image: url-shortener
+    container_name: url-shortener
+    networks:
+      - url-shortener-net
+    ports:
+      - 8080:8080
+
+  redis:
+    image: redis/redis-stack:latest
+    container_name: url-shortener-redis
+    hostname: ${REDIS_HOSTNAME}
+    networks:
+      - url-shortener-net
+    ports:
+      - 6380:${REDIS_PORT}
+      - 8001:8001
+    environment:
+      # RDB + AOF
+      - REDIS_ARGS=--save 60 1000 --appendonly yes
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  url-shortener-net:
+    name: url-shortener-net
+    driver: bridge
