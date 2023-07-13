@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
-public class UrlShortenerConfiguration {
+public class RedisConfiguration {
 
     private final RedisProperties redisProperties;
 
