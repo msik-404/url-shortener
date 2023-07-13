@@ -1,4 +1,4 @@
-package com.msik404.urlshortener;
+package com.msik404.urlshortener.url;
 
 public class UrlTakenException extends RuntimeException {
     UrlTakenException(String url) {

@@ -1,4 +1,4 @@
-package com.msik404.urlshortener;
+package com.msik404.urlshortener.url;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class UrlOccupiedAdvice {
+class UrlNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(UrlTakenException.class)
+    @ExceptionHandler(UrlNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String urlTakenHandler(UrlTakenException ex) {
+    String urlNotFoundHandler(UrlNotFoundException ex) {
         return ex.getMessage();
     }
 }

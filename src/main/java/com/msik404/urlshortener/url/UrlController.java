@@ -1,4 +1,4 @@
-package com.msik404.urlshortener;
+package com.msik404.urlshortener.url;
 
 import java.net.URI;
 
@@ -10,14 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/urls")
 @RequiredArgsConstructor
 public class UrlController {
 
@@ -39,10 +37,10 @@ public class UrlController {
     public Mono<ResponseEntity<Url>> shortenUrl(@RequestBody Mono<Url> urlMono) {
 
         return urlMono.flatMap(url -> {
-            Mono<Boolean> wasSetMono = template.opsForValue().setIfAbsent(url.getShortUrl(), url.getRealUrl());
+            Mono<Boolean> wasSetMono = template.opsForValue().setIfAbsent(url.getShortPhrase(), url.getRealUrl());
             return wasSetMono.map(wasSet -> {
                 if (!wasSet) {
-                    throw new UrlTakenException(url.getShortUrl());
+                    throw new UrlTakenException(url.getShortPhrase());
                 }
                 return ResponseEntity.ok(url);
             });
