@@ -22,13 +22,11 @@ services:
     networks:
       - url-shortener-net
     ports:
-      - 6380:${REDIS_PORT}
+      - 6380:6379
       - 8001:8001
-    environment:
-      # RDB + AOF
-      - REDIS_ARGS=--save 60 1000 --appendonly yes
     volumes:
       - redis-data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
 
 volumes:
   redis-data:
